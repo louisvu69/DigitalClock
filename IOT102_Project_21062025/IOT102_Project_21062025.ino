@@ -7,8 +7,8 @@
 #include "MQ135.h"        // MQ135 library
 
 // WiFi credentials
-const char* ssid = "202";
-const char* password = "Nguyenthuyhanh1998";
+const char* ssid = "your_SSID";  // Replace with your WiFi SSID
+const char* password = "your_PASSWORD";  // Replace with your WiFi password
 
 // DHT11 sensor setup
 #define DHTPIN D7
@@ -79,7 +79,7 @@ void setup() {
     lcd.print("Connected, IP:");
     lcd.setCursor(0, 1);
     lcd.print(WiFi.localIP().toString());  // Display IP on LCD
-    Serial.println("connected...yeey :)");
+    Serial.println("connected to WiFi");
     Serial.println("IP: " + WiFi.localIP().toString());
     delay(5000);
   }
