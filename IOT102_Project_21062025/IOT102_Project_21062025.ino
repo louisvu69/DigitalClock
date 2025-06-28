@@ -6,14 +6,11 @@
 #include "LCD_Control.h"  // LCD library
 #include "MQ135.h"        // MQ135 library
 
-// WiFi credentials
-const char* ssid = "your_SSID";  // Replace with your WiFi SSID
-const char* password = "your_PASSWORD";  // Replace with your WiFi password
-
 // DHT11 sensor setup
 #define DHTPIN D7
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
+
 byte degree[8] = {
   0B01110,
   0B01010,
@@ -50,6 +47,7 @@ struct Alarm {
   bool triggered;               // Whether the alarm has been triggered
   unsigned long buzzStartTime;  // Time when buzzer starts (for millis)
 };
+
 Alarm alarms[10];                   // Array to store up to 10 alarms
 int alarmCount = 0;                 // Current number of alarms
 const int buzzerDuration = 300000;  // Fixed buzzer duration: 5 minutes (300,000 ms)
@@ -57,9 +55,11 @@ bool buzzerActive = false;          // Flag to track if buzzer is currently acti
 
 void setup() {
   Serial.begin(115200);
+
   // Initialize WiFiManager to connect to WiFi
   WiFiManager wm;
   bool res = wm.autoConnect("DigitalClock", "12345678");  // Create AP with name and password
+
   // Initialize RTC and LCD
   initRTC();
   initLCD();
@@ -69,7 +69,7 @@ void setup() {
   lcd.setCursor(1, 0);  // Set cursor to start of line 1
   lcd.print("DIGITAL CLOCK");
   delay(5000);
-
+  
   if (!res) {  // If WiFi connection fails
     lcd.print("Failed to connect");
     Serial.println("Failed to connect");
